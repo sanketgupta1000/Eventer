@@ -18,6 +18,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 AUTH_USER_MODEL = "account.Account"
 
+LOGIN_URL = "login"
+
+LOGOUT_URL = "home"
+
 TIME_ZONE = "Asia/Kolkata"
 
 # Quick-start development settings - unsuitable for production
