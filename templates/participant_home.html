@@ -1,0 +1,39 @@
+{% extends "participant_base.html" %}
+
+{% block titleblock %}
+    Home
+{% endblock titleblock %}
+
+{% block content %}
+
+    <section class="upcoming_events">
+
+        <h2>Upcoming Events</h2>
+
+        {% with events=upcoming_events %}
+            {% include "event_container.html" %}
+        {% endwith %}
+
+    </section>
+
+    <section class="organizers">
+
+        <h2>Featured Organizers</h2>
+
+        {% with organizers=featured_organizers %}
+            {% include "organizer_container.html" %}
+        {% endwith %}
+
+    </section>
+
+    <section class="new_events">
+
+        <h2>New Events</h2>
+
+        {% with events=new_events %}
+            {% include "event_container.html" %}
+        {% endwith %}
+
+    </section>
+
+{% endblock content %}
