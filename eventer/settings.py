@@ -18,6 +18,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 AUTH_USER_MODEL = "account.Account"
 
+ALLOWED_HOSTS = ['localhost', '192.168.1.11', '127.0.0.1']
+
+LOGIN_URL = "login"
+
+LOGOUT_URL = "home"
+
 TIME_ZONE = "Asia/Kolkata"
 
 # Quick-start development settings - unsuitable for production
@@ -28,9 +34,6 @@ SECRET_KEY = 'django-insecure-4#2tm3l-h%c_zs-x)2beuu!)p*oys4nv3a=+pquf580u#3x093
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 

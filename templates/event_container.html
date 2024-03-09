@@ -1,0 +1,22 @@
+{# logic to render all events goes here #}
+<div class="container">
+
+    {% for event in events %}
+        {# logic to render one event card goes here #}
+        <div class="card">
+        
+            <div class="img-container">
+                <img src="{{event.image.url}}" alt="Photo of {{event.name}}">
+            </div>
+        
+            <div class="title">{{event.name}}</div>
+        
+            <div class="event-info">Event by {{event.account.organizer.name}}</div>
+            <div class="event-info">Category: {{event.category}}</div>
+            <div class="event-info">Date: {{event.date}}</div>
+            <div class="event-info">Venue: {{event.venue}}</div>
+        
+        </div>
+    {% endfor %}
+
+</div>

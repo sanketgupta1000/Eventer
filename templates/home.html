@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    {{request.user.username}}
+    <a href="{% url 'event:host' %}">Host an event</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
