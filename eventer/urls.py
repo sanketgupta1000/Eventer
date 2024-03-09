@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('organizer/', include('organizer.urls')),
     path('participant/', include('participant.urls')),
+    path('event/', include('event.urls')),
     path('login/', account_views.login_view, name='login'),
     path('home/', account_views.home, name='home'),
     path('logout/', account_views.logout_view, name='logout'),

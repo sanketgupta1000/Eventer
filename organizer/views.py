@@ -4,6 +4,7 @@ from account.models import Account
 from .forms import *
 from account.forms import AccountCreationForm
 from account.decorators import logout_required
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
@@ -23,6 +24,9 @@ def register_organizer(request):
             organizer_account = account_form.save(False)
             organizer_account.type = Account.Types.O
             organizer_account.save()
+
+            # now adding group
+            organizer_account.groups.add(Group.objects.get(name='Organizer'))
 
             # will create organizer now
             organizer = organizer_form.save(False)

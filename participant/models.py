@@ -17,7 +17,8 @@ class FollowList(models.Model):
 
 
 class Participation(models.Model):
-    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    # participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    account = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 

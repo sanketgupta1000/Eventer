@@ -1,0 +1,17 @@
+{# logic to render all organizer cards go here #}
+<div class="container">
+
+    {% for organizer in organizers %}
+        {# logic to render one organizer card goes here #}
+        <div class="card">
+        
+            <div class="title">{{organizer.name}}</div>
+            <div class="tagline">{{organizer.tagline}}</div>
+            <div class="manager">Managed by {{organizer.first_name}} {{organizer.last_name}}</div>
+        
+            <div class="follow-link"><a href="{% url 'follow' id=organizer.id %}">Follow</a></div>
+        
+        </div>
+    {% endfor %}
+
+</div>

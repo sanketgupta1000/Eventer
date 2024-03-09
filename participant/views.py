@@ -4,6 +4,7 @@ from account.models import Account
 from .forms import *
 from account.forms import AccountCreationForm
 from account.decorators import logout_required
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
@@ -23,6 +24,9 @@ def register_participant(request):
             participant_account = account_form.save(False)
             participant_account.type = Account.Types.P
             participant_account.save()
+
+            # now adding group
+            participant_account.groups.add(Group.objects.get(name='Participant'))
 
             # will create participant now
             participant = participant_form.save(False)
