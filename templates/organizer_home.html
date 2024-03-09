@@ -1,0 +1,13 @@
+{% extends 'organizer_base.html' %}
+
+{% block blockTitle %} Home {% endblock %}
+
+{% block content %}
+    <a href="url 'host'">Host a Event</a>
+
+    <div class="your-events">
+        {% with events=org_events %}
+            {% include 'event_container.html' %}
+        {% endwith %}
+    </div>
+{% endblock %}
