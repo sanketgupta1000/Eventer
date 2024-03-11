@@ -8,7 +8,13 @@
 <body>
     
     <header>
-        {% block header %}{% endblock %}
+        <nav>
+            <ul>
+                {% for nav_link in nav_links %}
+                    {% include nav_link %}
+                {% endfor %}
+            </ul>
+        </nav>            
     </header>
 
     <main>
