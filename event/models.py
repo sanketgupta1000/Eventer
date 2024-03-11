@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from organizer.models import Organizer
 from account.models import Account
@@ -23,7 +24,7 @@ class Event(models.Model):
 
     date = models.DateTimeField()
 
-    image = models.ImageField(upload_to="images/")
+    image = models.ImageField(upload_to=settings.MEDIA_ROOT)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 

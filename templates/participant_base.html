@@ -8,10 +8,10 @@
     <nav>
         <ul>
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'all_events' %}">Events</a></li>
-            <li><a href="{% url 'participations' %}">Participations</a></li>
-            <li><a href="{% url 'follow_list' %}">Follow List</a></li>
-            <li><a href="{% url 'profile' %}">Profile</a></li>
+            {% comment %} <li><a href="{% url 'all_events' %}">Events</a></li> {% endcomment %}
+            {% comment %} <li><a href="{% url 'participations' %}">Participations</a></li> {% endcomment %}
+            {% comment %} <li><a href="{% url 'follow_list' %}">Follow List</a></li> {% endcomment %}
+            {% comment %} <li><a href="{% url 'profile' %}">Profile</a></li> {% endcomment %}
             <li><a href="{% url 'logout' %}">Logout</a></li>
         </ul>
     </nav>

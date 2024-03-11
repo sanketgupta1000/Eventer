@@ -7,9 +7,9 @@
         
             <div class="title">{{organizer.name}}</div>
             <div class="tagline">{{organizer.tagline}}</div>
-            <div class="manager">Managed by {{organizer.first_name}} {{organizer.last_name}}</div>
+            <div class="manager">Managed by {{organizer.account.first_name}} {{organizer.account.last_name}}</div>
         
-            <div class="follow-link"><a href="{% url 'follow' id=organizer.id %}">Follow</a></div>
+            {% comment %} <div class="follow-link"><a href="{% url 'follow' id=organizer.id %}">Follow</a></div> {% endcomment %}
         
         </div>
     {% endfor %}
