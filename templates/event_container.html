@@ -15,6 +15,7 @@
             <div class="event-info">Category: {{event.category}}</div>
             <div class="event-info">Date: {{event.date}}</div>
             <div class="event-info">Venue: {{event.venue}}</div>
+            <a href="{% url 'event:view_event' id=event.id %}">View</a>
         
         </div>
     {% endfor %}

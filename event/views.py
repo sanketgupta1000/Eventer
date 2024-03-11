@@ -48,3 +48,16 @@ def participate(request, id):
     participation.save()
     # redirect to home
     return redirect("home")
+
+# view to view an event with a given id
+# any one can view an event
+def view_event(request, id):
+    # getting event details
+    event = get_object_or_404(Event, pk=id)
+    # will fill template paths of availabe actions in this array
+    actions = []
+    if request.user.has_perm("event.delete_own_event") and request.user==event.account:
+        actions+="cancel_event_btn.html"
+    if request.user.has_perm("event.participant_in_event"):
+        actions+="participate_event_btn.html"
+    return render(request, "view_event.html")

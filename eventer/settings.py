@@ -26,6 +26,35 @@ LOGOUT_URL = "home"
 
 TIME_ZONE = "Asia/Kolkata"
 
+# media files available to user at url: ip_adr/images/
+MEDIA_URL = "/images/"
+
+# absolute path of actual media storage directory
+MEDIA_ROOT = BASE_DIR / "images"
+
+# to log sql queries to terminal
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
