@@ -76,7 +76,8 @@ INSTALLED_APPS = [
     'account',
     'event',
     'organizer',
-    'participant'
+    'participant',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [

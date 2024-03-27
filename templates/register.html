@@ -4,17 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    {% load bootstrap5 %} 
+    {% bootstrap_css %} 
+    {% bootstrap_javascript %}
+    <style>
+        /* CSS for centering the form */
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
-    <form method="post">
+    <div class="centered-form container-lg">
+        <form method="post">
 
-        {% csrf_token %}
-        {% for form in forms %}
-            {{form.as_p}}
-        {% endfor %}
-        <input type="submit" value="Sign Up">
-        <a href="{% url 'login' %}">Login?</a>
+            {% csrf_token %}
+            {% for form in forms %}
+                {{form.as_p}}
+            {% endfor %}
+            <input type="submit" value="Sign Up" class="btn btn-primary btn-block">
+            <a href="{% url 'login' %}" class="btn btn-secondary btn-block">Login?</a>
 
-    </form>
+        </form>
+    </div>
 </body>
 </html>
