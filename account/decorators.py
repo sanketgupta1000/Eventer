@@ -23,14 +23,18 @@ def navbar_required():
         @wraps(view)
         def _wrapped_view(request, *args, **kwargs):
             # logic to include navlinks based on permissions go here
-            nav_links=['home_navlink.html', 'all_events_navlink.html']
-            if request.user.has_perm("event.participate_in_event"):
-                nav_links.append('participation_navlink.html')
+            nav_links=['home_navlink.html']
+            #, 'all_events_navlink.html']
+            # if request.user.has_perm("event.participate_in_event"):
+            #     nav_links.append('participation_navlink.html')
             # if request.user.has_perm("participant.follow"):
             #     nav_links.append('follow_list_navlink.html')
-            nav_links.append('profile_navlink.html', 'logout_navlink.html')
+            # nav_links.append('profile_navlink.html')
+            if request.user.is_authenticated:
+                nav_links.append('logout_navlink.html')
             # context to be sent to view, view will add in this context
             ctx={'nav_links':nav_links}
+            print(ctx)
             return view(request, ctx, *args, **kwargs)
         return _wrapped_view
     return decorator

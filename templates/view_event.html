@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event | {{event.name}}
+{% endblock %}
+
+{% block content %}
+
+    <section class="event-info">
+
+        <div class="img-container">
+            <img src="{{event.image.url}}" alt="Photo of {{event.name}}">
+        </div>
+    
+        <div class="title">{{event.name}}</div>
+    
+        <div class="event-info">Event by {{event.account.organizer.name}}</div>
+        <div class="event-info">Category: {{event.category}}</div>
+        <div class="event-info">Date: {{event.date}}</div>
+        <div class="event-info">Venue: {{event.venue}}</div>
+        <div class="event-info">Status: {{event.status}}</div>
+
+    </section>
+
+    <section class="actions">
+
+        {% for action in actions %}
+            {% include action %}
+        {% endfor %}
+
+    </section>
+
+{% endblock %}
