@@ -1,23 +1,21 @@
 {# logic to render all events goes here #}
 <div class="container">
-
+    <div class="row">
     {% for event in events %}
         {# logic to render one event card goes here #}
-        <div class="card">
-        
-            <div class="img-container">
-                <img src="{{event.image.url}}" alt="Photo of {{event.name}}">
+        <div class="col-sm-6">
+            <div class="card" style="width: 18rem;">
+                <img src="{{event.image.url}}" class="card-img-top" alt="Photo of {{event.name}}" width="250" height="400">
+                <div class="card-body">
+                <h5 class="card-title">{{event.name}}</h5>
+                <p class="card-text">Event by {{event.account.organizer.name}}</p>
+                <p class="card-text">Category: {{event.category}}</p>
+                <p class="card-text">Date: {{event.date}}</p>
+                <p class="card-text">Venue: {{event.venue}}</p>
+                <a href="{% url 'event:view_event' id=event.id %}" class="btn btn-primary">View</a>
+                </div>
             </div>
-        
-            <div class="title">{{event.name}}</div>
-        
-            <div class="event-info">Event by {{event.account.organizer.name}}</div>
-            <div class="event-info">Category: {{event.category}}</div>
-            <div class="event-info">Date: {{event.date}}</div>
-            <div class="event-info">Venue: {{event.venue}}</div>
-            <a href="{% url 'event:view_event' id=event.id %}">View</a>
-        
         </div>
     {% endfor %}
-
+    </div>
 </div>

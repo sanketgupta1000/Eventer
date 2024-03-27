@@ -4,16 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    {% load bootstrap5 %} 
+    {% bootstrap_css %} 
+    {% bootstrap_javascript %}
+    <style>
+        /* Custom CSS for centering the form */
+        .centered-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
 </head>
 <body>
-    <form method="post">
-
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Login">
-        <a href="{% url 'organizer:register' %}">Register as Organizer?</a>
-        <a href="{% url 'participant:register' %}">Register as Participant?</a>
-
-    </form>
+    <div class="centered-form">
+        <form method="post" class="col-md-6">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Login" class="btn btn-primary btn-block">
+            <a href="{% url 'organizer:register' %}" class="btn btn-secondary btn-block">Register as Organizer?</a>
+            <a href="{% url 'participant:register' %}" class="btn btn-secondary btn-block">Register as Participant?</a>
+        </form>
+    </div>
 </body>
 </html>
