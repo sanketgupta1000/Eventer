@@ -27,11 +27,15 @@ def login_view(request):
 
 # view for showing home page
 @login_required
-def home(request):
+@navbar_required()
+def home(request, ctx):
+    print(ctx)
     if request.user.type==Account.Types.O:
         # fetching all events of organizer
         events = Event.objects.filter(account=request.user).order_by("-date")
-        return render(request, "organizer_home.html", {'org_events': events})
+        ctx.update({'org_events': events})
+        print(ctx)
+        return render(request, "organizer_home.html", ctx)
     else:
         # user is a participant
         # getting upcoming events of the user
@@ -40,7 +44,9 @@ def home(request):
         featured_organizers = Organizer.objects.exclude(followlist__participant=request.user.participant)
         # for testing only
         new_events = Event.objects.all()
-        return render(request, "participant_home.html", {"upcoming_events":upcoming_events, "featured_organizers":featured_organizers, "new_events": new_events})
+        ctx.update({"upcoming_events":upcoming_events, "featured_organizers":featured_organizers, "new_events": new_events})
+        print(ctx)
+        return render(request, "participant_home.html", ctx)
 
 
 # view to log user out

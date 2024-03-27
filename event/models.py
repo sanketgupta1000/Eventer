@@ -39,6 +39,7 @@ class Event(models.Model):
             ("delete_own_event", "Can delete own event"),
             ("view_all_event", "Can view all events"),
             ("participate_in_event", "Can participate in event"),
+            ("complete_own_event", "Can mark own event as completed")
         ]
 
 
