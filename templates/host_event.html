@@ -1,33 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Host Event</title>
-    {% load bootstrap5 %} 
-    {% bootstrap_css %} 
-    {% bootstrap_javascript %}
-    <style>
-        .centered-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-    </style>
-</head>
-<body>
-    
-    <div class="centered-form container-lg">
-        <form method="post" enctype="multipart/form-data">
+{% extends 'base.html' %}
 
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Host" class="btn btn-primary btn-block">
-            <!-- <input type="datetime-local" name="" id=""> -->
+{% block title %}
+Host an Event
+{% endblock %}
 
-        </form>
-    </div>
+{% block extra %}
 
-</body>
-</html>
+
+<style>
+    .centered-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="centered-form container-lg">
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Host" class="btn btn-primary btn-block">
+        <!-- <input type="datetime-local" name="" id=""> -->
+
+    </form>
+</div>
+
+{% endblock %}

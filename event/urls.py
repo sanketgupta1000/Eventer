@@ -10,5 +10,6 @@ urlpatterns = [
     path('participate/<int:id>', views.participate, name='participate'),
     path('cancel/<int:id>', views.cancel_event, name='cancel_event'),
     path('checkin/<int:id>', views.checkin_event, name='checkin'),
-    path('complete/<int:id>', views.complete_event, name='complete_event')
+    path('complete/<int:id>', views.complete_event, name='complete_event'),
+    path('all/', views.all_events, name='all_events')
 ]

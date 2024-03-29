@@ -1,0 +1,12 @@
+
+{# logic to render one organizer card goes here #}
+<div class="card">
+
+    <div class="title">{{organizer.name}}</div>
+    <div class="tagline">{{organizer.tagline}}</div>
+    <div class="manager">Managed by {{organizer.account.first_name}} {{organizer.account.last_name}}</div>
+
+    <a href="{% url 'organizer:view_organizer' id=organizer.id %}">View profile</a>
+    <a href="{% url 'organizer:unfollow_organizer' id=organizer.id %}">Unfollow</a>
+
+</div>

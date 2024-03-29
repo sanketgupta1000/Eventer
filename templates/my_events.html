@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Events | {{request.user.username}}
+{% endblock %}
+
+{% block content %}
+
+<section class="upcoming-events">
+
+    <h2>Upcoming Events</h2>
+
+    {% with events=upcoming_events %}
+        {% include 'event_container.html' %}
+    {% endwith %}
+
+</section>
+
+<section class="past-events">
+
+    <h2>Past Events</h2>
+
+    {% with events=past_events %}
+        {% include 'event_container.html' %}
+    {% endwith %}
+
+</section>
+
+{% endblock %}

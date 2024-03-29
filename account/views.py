@@ -54,3 +54,9 @@ def home(request, ctx):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+# view for landing page
+@navbar_required()
+def landing_view(request, ctx):
+    return render(request, 'landing_page.html', ctx)

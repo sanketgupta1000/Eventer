@@ -3,8 +3,9 @@ from .models import *
 from account.models import Account
 from .forms import *
 from account.forms import AccountCreationForm
-from account.decorators import logout_required
+from account.decorators import logout_required, navbar_required
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
@@ -39,3 +40,33 @@ def register_participant(request):
         participant_form = ParticipantCreationForm()
     
     return render(request, "register.html", {'forms': [account_form, participant_form]})
+
+
+# view to show a participant's follow list
+@login_required
+@navbar_required()
+def follow_list(request, ctx):
+
+    if request.user.type==Account.Types.P:
+
+        # it is a participant
+        # get all the organizers that the participant has followed
+        followed_organizers = Organizer.objects.filter(followlist__participant=request.user.participant)
+        print(followed_organizers)
+        ctx.update({'followed_organizers': followed_organizers})
+        return render(request, "follow_list.html", ctx)
+    else:
+        return redirect("home")
+    
+
+# view to show all participations
+@login_required
+@permission_required("event.participate_in_event", raise_exception=True)
+@navbar_required()
+def participations(request, ctx):
+    # getting events the user participated in
+    events = Event.objects.filter(participation__account=request.user)
+
+    ctx.update({'events': events})
+
+    return render(request, 'participations.html', ctx)

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Organizer | {{organizer.name}}
+{% endblock %}
+
+{% block content %}
+
+<section class="organizer-info">
+
+    <div class="card">
+        
+        <div class="title">{{organizer.name}}</div>
+        <div class="tagline">{{organizer.tagline}}</div>
+        <div class="manager">Managed by {{organizer.account.first_name}} {{organizer.account.last_name}}</div>
+        <div class="desc">{{organizer.description}}</div>
+    
+    </div>
+
+</section>
+
+<section class="actions">
+
+    {% for action in actions %}
+        {% include action %}
+    {% endfor %}
+
+</section>
+
+<section class="events">
+
+    <h2>Our Events</h2>
+
+    {% include 'event_container.html' %}
+
+</section>
+
+{% endblock %}

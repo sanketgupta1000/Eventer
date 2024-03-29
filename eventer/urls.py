@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    path('', account_views.landing_view, name='landing_page'),
     path('admin/', admin.site.urls),
     path('organizer/', include('organizer.urls')),
     path('participant/', include('participant.urls')),

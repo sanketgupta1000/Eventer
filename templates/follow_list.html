@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Follow List | {{request.user.username}}
+{% endblock %}
+
+{% block content %}
+
+<section class="follow-list-container">
+
+    {% for organizer in followed_organizers %}
+        {% include 'follow_list_card.html' %}
+    {% endfor %}
+
+</section>
+
+{% endblock %}
