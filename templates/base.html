@@ -18,6 +18,17 @@
             width: 100px;
         }
 
+        html,
+        body {
+            height: 100%;
+        }
+        #page-content {
+            flex: 1 0 auto;
+        }
+        #footer {
+            flex-shrink: 0;
+        }
+
     </style>
 
 </head>
@@ -43,15 +54,33 @@
         </nav>       
     </header>
 
-    <main>
+    <main id="page-content">
 
         {% block content %}{% endblock %}
 
     </main>
 
-    <footer class="bg-dark text-white text-center py-3">
+    <footer id="footer" class="bg-dark text-white py-4">
         <div class="container">
-            <p class="mb-0">Copyright 2024 @ Eventer</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Mobile: +91 987 654 3210</p>
+                    <p>Email: info_eventer@gmail.com</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>About Eventer</h5>
+                    <p>Eventer is your one-stop platform for managing and organizing events.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="bi bi-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="bi bi-instagram"></i> Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </footer>
 

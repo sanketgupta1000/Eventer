@@ -1,34 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    {% load bootstrap5 %} 
-    {% bootstrap_css %} 
-    {% bootstrap_javascript %}
-    <style>
-        /* CSS for centering the form */
-        .centered-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-    </style>
-</head>
-<body>
-    <div class="centered-form container-lg">
-        <form method="post">
+{% extends 'base.html' %}
+{% block title %}Host Event{% endblock %}
 
-            {% csrf_token %}
-            {% for form in forms %}
-                {{form.as_p}}
-            {% endfor %}
-            <input type="submit" value="Sign Up" class="btn btn-primary btn-block">
-            <a href="{% url 'login' %}" class="btn btn-secondary btn-block">Login?</a>
+{% block extra %}
+<style>
+    /* Custom CSS for centering the form */
+    .centered-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    /* Custom CSS for form shading */
+    .form-container {
+        background-color: rgba(0, 0, 0, 0.1); /* Adjust the opacity as needed */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow */
+    }
+</style>
+{% endblock %}
 
-        </form>
-    </div>
-</body>
-</html>
+{% block content %}
+<div class="centered-form container-lg mb-5 mt-4"> <!-- Add the form-shading class here -->
+    <form method="post" class="form-container">
+        <h2 class="text-center mb-4">Register</h2>
+        {% csrf_token %}
+        {% for form in forms %}
+            {{form.as_p}}
+        {% endfor %}
+        <input type="submit" value="Sign Up" class="btn btn-success btn-block">
+        <a href="{% url 'login' %}" class="btn btn-secondary btn-block">Login?</a>
+
+    </form>
+</div>
+{% endblock %}
