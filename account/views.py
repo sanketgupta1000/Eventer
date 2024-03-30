@@ -31,8 +31,8 @@ def login_view(request):
 def home(request, ctx):
     print(ctx)
     if request.user.type==Account.Types.O:
-        # fetching all events of organizer
-        events = Event.objects.filter(account=request.user).order_by("-date")
+        # fetching upcoming events of organizer
+        events = Event.objects.filter(account=request.user, status='u').order_by("date")
         ctx.update({'org_events': events})
         print(ctx)
         return render(request, "organizer_home.html", ctx)
@@ -42,8 +42,11 @@ def home(request, ctx):
         upcoming_events = Event.objects.filter(participation__account=request.user, status='u').order_by("date")
         # getting unfollowed organizers
         featured_organizers = Organizer.objects.exclude(followlist__participant=request.user.participant)
-        # for testing only
-        new_events = Event.objects.all()
+        
+        # getting new events, events from following organizers, upcoming, but not yet participated
+        followed_organizers = Organizer.objects.filter(followlist__participant=request.user.participant)
+        followed_org_acc = Account.objects.filter(organizer__in=followed_organizers)
+        new_events = Event.objects.filter(account__in=followed_org_acc).filter(status='u').exclude(participation__account=request.user)
         ctx.update({"upcoming_events":upcoming_events, "featured_organizers":featured_organizers, "new_events": new_events})
         print(ctx)
         return render(request, "participant_home.html", ctx)
