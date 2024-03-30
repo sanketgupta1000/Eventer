@@ -4,9 +4,12 @@
 
 {% block content %}
 
-    <div class="your-events">
+    <section class="your-events py-4">
+
+        <h2 class="text-center mb-4">Your Upcoming Events</h2>
+
         {% with events=org_events %}
             {% include 'event_container.html' %}
         {% endwith %}
-    </div>
+    </section>
 {% endblock %}
