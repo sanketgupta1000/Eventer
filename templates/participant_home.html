@@ -6,9 +6,9 @@
 
 {% block content %}
 
-    <section class="upcoming_events">
+    <section class="upcoming_events py-4">
 
-        <h2>Upcoming Events</h2>
+        <h2 class="text-center mb-4">Upcoming Events</h2>
 
         {% with events=upcoming_events %}
             {% include "event_container.html" %}
@@ -16,9 +16,9 @@
 
     </section>
 
-    <section class="organizers">
+    <section class="organizers py-4">
 
-        <h2>Featured Organizers</h2>
+        <h2 class="text-center mb-4">Featured Organizers</h2>
 
         {% with organizers=featured_organizers %}
             {% include "organizer_container.html" %}
@@ -26,9 +26,9 @@
 
     </section>
 
-    <section class="new_events">
+    <section class="new_events py-4">
 
-        <h2>New Events</h2>
+        <h2 class="text-center mb-4">New Events</h2>
 
         {% with events=new_events %}
             {% include "event_container.html" %}

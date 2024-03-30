@@ -1,4 +1,5 @@
-{# logic to render organizers goes here #}
+
+{# logic to render one organizer card goes here #}
 <div class="container">
     <div class="row">
         {% for organizer in organizers %}
@@ -9,6 +10,7 @@
                     <p class="card-text">Tagline: {{organizer.tagline}}</p>
                     <p class="card-text">Managed by {{organizer.account.first_name}} {{organizer.account.last_name}}</p>
                     <a href="{% url 'organizer:view_organizer' id=organizer.id %}" class="btn btn-primary">View Profile</a>
+                    <a href="{% url 'organizer:unfollow_organizer' id=organizer.id %}" class="btn btn-danger">Unfollow</a>
                 </div>
             </div>
         </div>

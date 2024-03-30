@@ -9,23 +9,34 @@ from django.utils import timezone
 from datetime import timedelta
 import zoneinfo
 from django.utils.dateparse import parse_datetime
+from django.utils.timezone import is_aware, is_naive
 
 # Create your views here.
 
 # view to host an event
 @login_required
 @permission_required("event.host_event", raise_exception=True)
-def host_event(request):
+@navbar_required()
+def host_event(request, ctx):
     if request.method=='POST':
         form = EventHostForm(request.POST, request.FILES)
         if form.is_valid():
             event = form.save(False)
             event.account = request.user
+            # set date's timezone to current user's timezone
+            # since small app, statically setting it, if TIME_ZONE = "UTC" in settings
+            # event.date = event.date.replace(tzinfo=zoneinfo.ZoneInfo("Asia/Kolkata"))
+            # or, set TIME_ZONE to Asia/Kolkata in settings.py, this is suitable only if app has users of only one region
+            # ideally, set TIME_ZONE to utc
+            # ask each user for their timezone at the tiem of registeration
+            # whenever needed, add tzinfo to the date like: event.date=event.date.replace(tzinfo=ZoneInfo(request.user.timezone))
+            # and when displaying in templates, display in the user's timezone
             event.save()
             return redirect('home')
     else:
         form = EventHostForm()
-    return render(request, 'host_event.html', {'form': form})
+    ctx.update({'form': form})
+    return render(request, 'host_event.html', ctx)
 
 # view to delete an event
 @login_required
@@ -163,7 +174,7 @@ def canParticipateInEvent(request, event):
 
     # getting participation if exists
     try:
-        participation = Participation.objects.get(account=request.user, event=event)
+        participation = Participation.objects.get(account=request.user.id, event=event)
     except Participation.DoesNotExist:
         participation = None
     
@@ -175,7 +186,7 @@ def participatedInEvent(request, event):
 
     # get participation
     try:
-        participation = Participation.objects.get(account=request.user, event=event)
+        participation = Participation.objects.get(account=request.user.id, event=event)
     except Participation.DoesNotExist:
         participation = None
 
@@ -187,15 +198,10 @@ def canCheckInEvent(request, event):
 
     # getting participation
     try:
-        participation = Participation.objects.get(account=request.user, event=event)
+        participation = Participation.objects.get(account=request.user.id, event=event)
     except Participation.DoesNotExist:
         participation = None
-    print(timezone.is_aware(event.date))
-    print(event.date)
-    print(timezone.is_aware(timezone.now()))
-    print(timezone.now())
-    # naive = parse_datetime(event.date.)
-    # print(naive)
+
     if event.status=='u' and participation!=None and participation.status!="checked_in" and timezone.now()>=event.date:
         print("can check in")
         return participation
@@ -204,8 +210,9 @@ def canCheckInEvent(request, event):
 def checkedInEvent(request, event):
 
     try:
-        participation = Participation.objects.get(account=request.user, event=event)
+        participation = Participation.objects.get(account=request.user.id, event=event)
     except Participation.DoesNotExist:
+        # print("not found")
         participation = None
 
     if participation!=None and participation.status=="checked_in":
@@ -251,3 +258,14 @@ def complete_event(request, id):
         event.status = 'c'
         event.save()
     return redirect("event:view_event", id=id)
+
+
+# view to show all events
+@navbar_required()
+def all_events(request, ctx):
+    # will get all events and update in ctx
+    events = Event.objects.all()
+
+    ctx.update({'events': events})
+
+    return render(request, 'all_events.html', ctx)

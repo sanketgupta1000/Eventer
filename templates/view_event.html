@@ -14,7 +14,7 @@ Event | {{event.name}}
     
         <div class="title">{{event.name}}</div>
     
-        <div class="event-info">Event by {{event.account.organizer.name}}</div>
+        <div class="event-info">Event by <a href="{% url 'organizer:view_organizer' id=event.account.organizer.id %}">{{event.account.organizer.name}}</a></div>
         <div class="event-info">Category: {{event.category}}</div>
         <div class="event-info">Date: {{event.date}}</div>
         <div class="event-info">Venue: {{event.venue}}</div>

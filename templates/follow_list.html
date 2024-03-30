@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Follow List | {{request.user.username}}
+{% endblock %}
+
+{% block content %}
+
+<section class="follow-list-container py-4">
+
+    <h2 class="text-center mb-4">Follow List</h2>
+
+    {% with followed_organizers as organizers %}
+        {% include 'follow_list_container.html' %}
+    {% endwith %}
+    
+</section>
+
+{% endblock %}
