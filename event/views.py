@@ -9,6 +9,7 @@ from django.utils import timezone
 from datetime import timedelta
 import zoneinfo
 from django.utils.dateparse import parse_datetime
+from django.utils.timezone import is_aware, is_naive
 
 # Create your views here.
 
@@ -22,6 +23,14 @@ def host_event(request, ctx):
         if form.is_valid():
             event = form.save(False)
             event.account = request.user
+            # set date's timezone to current user's timezone
+            # since small app, statically setting it, if TIME_ZONE = "UTC" in settings
+            # event.date = event.date.replace(tzinfo=zoneinfo.ZoneInfo("Asia/Kolkata"))
+            # or, set TIME_ZONE to Asia/Kolkata in settings.py, this is suitable only if app has users of only one region
+            # ideally, set TIME_ZONE to utc
+            # ask each user for their timezone at the tiem of registeration
+            # whenever needed, add tzinfo to the date like: event.date=event.date.replace(tzinfo=ZoneInfo(request.user.timezone))
+            # and when displaying in templates, display in the user's timezone
             event.save()
             return redirect('home')
     else:
@@ -192,12 +201,7 @@ def canCheckInEvent(request, event):
         participation = Participation.objects.get(account=request.user.id, event=event)
     except Participation.DoesNotExist:
         participation = None
-    print(timezone.is_aware(event.date))
-    print(event.date)
-    print(timezone.is_aware(timezone.now()))
-    print(timezone.now())
-    # naive = parse_datetime(event.date.)
-    # print(naive)
+
     if event.status=='u' and participation!=None and participation.status!="checked_in" and timezone.now()>=event.date:
         print("can check in")
         return participation

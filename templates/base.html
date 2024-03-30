@@ -7,19 +7,40 @@
     {% load bootstrap5 %} 
     {% bootstrap_css %} 
     {% bootstrap_javascript %}
+    {% load static %}
     {% block extra %}
     {% endblock %}
+
+    <style>
+
+        #brand-img
+        {
+            width: 100px;
+        }
+
+    </style>
+
 </head>
 <body>
     
     <header>
-        <nav>
-            <ul>
-                {% for nav_link in nav_links %}
-                    {% include nav_link %}
-                {% endfor %}
-            </ul>
-        </nav>            
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <!-- Dummy Logo -->
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'landing_page' %}"><img id="brand-img" src="{% static 'images/logo-no-background.png' %}" alt="Eventer"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% for nav_link in nav_links %}
+                            {% include nav_link %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </nav>       
     </header>
 
     <main>
@@ -28,8 +49,10 @@
 
     </main>
 
-    <footer>
-        Copyright 2024 @ Eventer
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p class="mb-0">Copyright 2024 @ Eventer</p>
+        </div>
     </footer>
 
 </body>

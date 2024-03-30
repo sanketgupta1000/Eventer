@@ -59,4 +59,13 @@ def logout_view(request):
 # view for landing page
 @navbar_required()
 def landing_view(request, ctx):
+
+    # get first 4 events
+    events = Event.objects.all()[:4]
+
+    # get first 4 organizers
+    organizers = Organizer.objects.all()[:4]
+
+    ctx.update({'events': events, 'organizers': organizers})
+
     return render(request, 'landing_page.html', ctx)

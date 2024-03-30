@@ -26,10 +26,12 @@ def navbar_required():
         def _wrapped_view(request, *args, **kwargs):
             # logic to include navlinks based on permissionsa and groups go here
 
+            nav_links=[]
+
             if request.user.is_authenticated:
                 nav_links=['home_navlink.html']
-            else:
-                nav_links=['landing_page_navlink.html']
+            # else:
+            #     nav_links=['landing_page_navlink.html']
 
             if request.user.has_perm("event.host_event"):
                 nav_links.append("host_event_navlink.html")

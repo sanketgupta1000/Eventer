@@ -6,12 +6,14 @@ Follow List | {{request.user.username}}
 
 {% block content %}
 
-<section class="follow-list-container">
+<section class="follow-list-container py-4">
 
-    {% for organizer in followed_organizers %}
-        {% include 'follow_list_card.html' %}
-    {% endfor %}
+    <h2 class="text-center mb-4">Follow List</h2>
 
+    {% with followed_organizers as organizers %}
+        {% include 'follow_list_container.html' %}
+    {% endwith %}
+    
 </section>
 
 {% endblock %}
