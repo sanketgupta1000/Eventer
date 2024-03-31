@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import permission_required, login_required
 from django.core.exceptions import PermissionDenied
 
 from account.decorators import navbar_required
+from account.models import Account
 from .forms import *
 from participant.models import Participation
 from django.utils import timezone
@@ -10,6 +12,10 @@ from datetime import timedelta
 import zoneinfo
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware, is_naive
+from django.conf import settings
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
 
@@ -62,6 +68,20 @@ def participate(request, id):
         # create new participation
         newparticipation = Participation(account=request.user, event=event)
         newparticipation.save()
+        # send mail to participant
+        # first render the template
+        html_resp = render_to_string("event_ticket.html", {'event': event}, request)
+        # send email
+        send_mail(
+            "Event Ticket",
+            strip_tags(html_resp),
+            settings.DEFAULT_FROM_EMAIL,
+            [request.user.email,],
+            False,
+            settings.EMAIL_HOST_USER,
+            settings.EMAIL_HOST_PASSWORD,
+            html_message=html_resp
+        )
     return redirect("event:view_event", id=id)
 
 # view to view an event with a given id
@@ -231,6 +251,26 @@ def cancel_event(request, id):
         event.status = 'x'
         event.save()
 
+        # mail all participants
+        # get the participant list
+        participant_accounts = Account.objects.filter(participation__event=event)
+        # get their emails
+        emails = [participant_account.email for participant_account in participant_accounts]
+        print(emails)
+        # get the rendered template as str
+        html_resp = render_to_string("event_cancellation.html", {'event': event}, request)
+        # get the plain text response
+        plain_resp = strip_tags(html_resp)
+        # email msg obj
+        msg = EmailMultiAlternatives(
+            "Event Cancellation",
+            plain_resp,
+            settings.DEFAULT_FROM_EMAIL,
+            bcc=emails
+        )
+        msg.attach_alternative(html_resp, "text/html")
+        msg.send()
+
     # redirect to the event page
     return redirect("event:view_event", id=id)
 
@@ -269,3 +309,17 @@ def all_events(request, ctx):
     ctx.update({'events': events})
 
     return render(request, 'all_events.html', ctx)
+
+
+# view to test mail
+# def test_mail(request):
+#     print(settings.EMAIL_USE_TLS)
+#     print(settings.EMAIL_USE_SSL)
+#     send_mail(
+#         "Test mail",
+#         "This is a test mail. If you receive it, testing is successful",
+#         settings.DEFAULT_FROM_EMAIL,
+#         ['sanketgupta1000@gmail.com'],
+#         fail_silently=False
+#     )
+#     return HttpResponse("success")
