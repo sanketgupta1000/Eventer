@@ -1,0 +1,42 @@
+{% extends 'pages/base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block extra %}
+<style>
+    /* Custom CSS for centering the form */
+    .centered-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh; /* Adjust the height as needed */
+    }
+    /* Custom CSS for form shading and centering form fields */
+    .form-container {
+        background-color: rgba(0, 0, 0, 0.1); /* Adjust the opacity as needed */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow */
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="centered-form">
+        <form method="post" class="col-md-6 form-container"> <!-- Add the form-container class here -->
+            <h2 class="text-center mb-4">Login</h2>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                {{ form.password }}
+            </div>
+            <input type="submit" value="Login" class="btn btn-success btn-block">
+            <a href="{% url 'organizer:register' %}" class="btn btn-secondary btn-block">Register as Organizer?</a>
+            <a href="{% url 'participant:register' %}" class="btn btn-secondary btn-block">Register as Participant?</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

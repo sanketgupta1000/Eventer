@@ -42,7 +42,7 @@ def host_event(request, ctx):
     else:
         form = EventHostForm()
     ctx.update({'form': form})
-    return render(request, 'host_event.html', ctx)
+    return render(request, 'pages/host_event.html', ctx)
 
 # view to delete an event
 @login_required
@@ -70,7 +70,7 @@ def participate(request, id):
         newparticipation.save()
         # send mail to participant
         # first render the template
-        html_resp = render_to_string("event_ticket.html", {'event': event}, request)
+        html_resp = render_to_string("mail/event_ticket.html", {'event': event}, request)
         # send email
         send_mail(
             "Event Ticket",
@@ -84,65 +84,6 @@ def participate(request, id):
         )
     return redirect("event:view_event", id=id)
 
-# view to view an event with a given id
-# any one can view an event
-# @navbar_required()
-# def view_event(request, ctx, id):
-#     # getting event details
-#     event = get_object_or_404(Event, pk=id)
-#     # will fill template paths of availabe actions in this array
-#     actions = []
-#     current_time = timezone.now()
-#     if request.user.has_perm("event.delete_own_event") and request.user==event.account:
-#         # checking if already canceled or not
-#         if event.status=="x":
-#             # already canceled
-#             actions.append("canceled_event_btn.html")
-#         else:
-#             # not already canceled
-#             # checking if time <= one day before event
-#             if event.date-current_time>=timedelta(days=1):
-#                 # can cancel
-#                 actions.append("cancel_event_btn.html")
-#             else:
-#                 # cannot cancel
-#                 actions.append("cannot_cancel_event_btn.html")
-#     if request.user.has_perm("event.participate_in_event") and event.status=='u':
-#         # checking if already participated or not
-#         try:
-#             participation = Participation.objects.get(account=request.user, event=event)
-#         except Participation.DoesNotExist:
-#             participation = None
-#         if(participation==None):
-#             # not already participated
-#             # check if not already started
-#             if event.date>current_time:
-#                 # not started
-#                 # show btn to participate
-#                 actions.append("participate_event_btn.html")
-#             else:
-#                 # already started
-#                 actions.append("started_event_btn.html")
-#         else:
-#             # already participated
-#             # checking if already checked in
-#             if participation.status=="checked_in":
-#                 # checked in
-#                 # show checked in
-#                 actions.append("checked_in_event_btn.html")
-#             else:
-#                 # not checked in
-#                 # check if time between 0 to 10 mins after start or not
-#                 if timedelta(minutes=0)<=(current_time-event.date)<=timedelta(minutes=10):
-#                     actions.append("check_in_event_btn.html")
-#                 else:
-#                     # cannot checkin now
-#                     actions.append("started_event_btn.html")
-#     # merging to ctx
-#     ctx.update({'event': event, 'actions': actions})
-#     print(actions)
-#     return render(request, "view_event.html", ctx)
-
 
 # to view an event
 @navbar_required()
@@ -155,26 +96,26 @@ def view_event(request, ctx, id):
     if event.status=='u':
 
         if canCancelEvent(request, event):
-            actions.append("cancel_event_btn.html")
+            actions.append("event/actions/cancel_event_btn.html")
         
         if canMarkEventCompleted(request, event):
-            actions.append("mark_as_complete_event_btn.html")
+            actions.append("event/actions/mark_as_complete_event_btn.html")
         
         if canParticipateInEvent(request, event):
-            actions.append("participate_event_btn.html")
+            actions.append("event/actions/participate_event_btn.html")
 
         if participatedInEvent(request, event):
-            actions.append("participated_event_btn.html")
+            actions.append("event/actions/participated_event_btn.html")
         
         if canCheckInEvent(request, event)!=False:
-            actions.append("check_in_event_btn.html")
+            actions.append("event/actions/check_in_event_btn.html")
 
         if checkedInEvent(request, event):
-            actions.append("checked_in_event_btn.html")
+            actions.append("event/actions/checked_in_event_btn.html")
     
     ctx.update({'event': event, 'actions': actions})
 
-    return render(request, "view_event.html", ctx)
+    return render(request, "pages/view_event.html", ctx)
 
 
 # helper functions
@@ -258,7 +199,7 @@ def cancel_event(request, id):
         emails = [participant_account.email for participant_account in participant_accounts]
         print(emails)
         # get the rendered template as str
-        html_resp = render_to_string("event_cancellation.html", {'event': event}, request)
+        html_resp = render_to_string("mail/event_cancellation.html", {'event': event}, request)
         # get the plain text response
         plain_resp = strip_tags(html_resp)
         # email msg obj
@@ -308,18 +249,4 @@ def all_events(request, ctx):
 
     ctx.update({'events': events})
 
-    return render(request, 'all_events.html', ctx)
-
-
-# view to test mail
-# def test_mail(request):
-#     print(settings.EMAIL_USE_TLS)
-#     print(settings.EMAIL_USE_SSL)
-#     send_mail(
-#         "Test mail",
-#         "This is a test mail. If you receive it, testing is successful",
-#         settings.DEFAULT_FROM_EMAIL,
-#         ['sanketgupta1000@gmail.com'],
-#         fail_silently=False
-#     )
-#     return HttpResponse("success")
+    return render(request, 'pages/all_events.html', ctx)

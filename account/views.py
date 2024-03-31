@@ -23,7 +23,7 @@ def login_view(request):
                 return redirect('home')
     else:
         form = AuthenticationForm()
-    return render(request, 'login.html', {'form':form})
+    return render(request, 'pages/login.html', {'form':form})
 
 # view for showing home page
 @login_required
@@ -35,7 +35,7 @@ def home(request, ctx):
         events = Event.objects.filter(account=request.user, status='u').order_by("date")
         ctx.update({'org_events': events})
         print(ctx)
-        return render(request, "organizer_home.html", ctx)
+        return render(request, "pages/organizer_home.html", ctx)
     else:
         # user is a participant
         # getting upcoming events of the user
@@ -49,7 +49,7 @@ def home(request, ctx):
         new_events = Event.objects.filter(account__in=followed_org_acc).filter(status='u').exclude(participation__account=request.user)
         ctx.update({"upcoming_events":upcoming_events, "featured_organizers":featured_organizers, "new_events": new_events})
         print(ctx)
-        return render(request, "participant_home.html", ctx)
+        return render(request, "pages/participant_home.html", ctx)
 
 
 # view to log user out
@@ -71,4 +71,4 @@ def landing_view(request, ctx):
 
     ctx.update({'events': events, 'organizers': organizers})
 
-    return render(request, 'landing_page.html', ctx)
+    return render(request, 'pages/landing_page.html', ctx)

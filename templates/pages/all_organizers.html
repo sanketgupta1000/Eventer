@@ -1,0 +1,17 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}
+All Organizers
+{% endblock %}
+
+{% block content %}
+
+<section class="all-organizers py-4">
+
+    <h2 class="text-center mb-4">All Organizers</h2>
+
+    {% include 'organizer/containers/organizer_container.html' %}
+
+</section>
+
+{% endblock %}

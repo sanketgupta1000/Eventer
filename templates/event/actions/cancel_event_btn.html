@@ -1,0 +1,9 @@
+{% extends 'event/actions/event_action_base.html' %}
+
+{% block action_link %}
+{% url 'event:cancel_event' id=event.id %}
+{% endblock %}
+
+{% block action_name %}
+Cancel Event
+{% endblock %}
