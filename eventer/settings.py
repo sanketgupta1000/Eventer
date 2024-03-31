@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+# dot env dependency
+from dotenv import dotenv_values
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -165,3 +167,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# config for email sending
+CONFIG = dotenv_values(".env")
+
+EMAIL_BACKEND = CONFIG["EMAIL_BACKEND"]
+EMAIL_HOST = CONFIG["EMAIL_HOST"]
+EMAIL_PORT = CONFIG["EMAIL_PORT"]
+EMAIL_HOST_USER = CONFIG["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = CONFIG["EMAIL_HOST_PASSWORD"]
+EMAIL_USE_SSL = CONFIG["EMAIL_USE_SSL"]
+DEFAULT_FROM_EMAIL = CONFIG["DEFAULT_FROM_EMAIL"]

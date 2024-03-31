@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Ticket</title>
+
+    <style>
+
+        .main-content
+        {
+            text-align: center;
+        }
+
+        .event-info
+        {
+            width: fit-content;
+            margin: auto;
+        }
+
+        table,th,td
+        {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <main class="main-content">
+
+        <h1 class="title">Event Ticket</h1>
+
+        <h2 class="participant-name">For Participant: {{request.user.first_name}} {{request.user.last_name}}</h2>
+
+        <table class="event-info">
+
+            <tr>
+                <td>Event Name:</td>
+                <td>{{event.name}}</td>
+            </tr>
+            <tr>
+                <td>Date: </td>
+                <td>{{event.date}}</td>
+            </tr>
+            <tr>
+                <td>Venue</td>
+                <td>{{event.venue}}</td>
+            </tr>
+        </table>
+
+        <h3>Be sure to check in once the event starts!</h3>
+
+    </main>
+
+</body>
+</html>
