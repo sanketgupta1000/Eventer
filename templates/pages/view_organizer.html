@@ -1,0 +1,86 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}
+Organizer | {{ organizer.name }}
+{% endblock %}
+
+{% block extra %}
+    <style>
+        /* Custom styles for view_organizer.html */
+        .organizer-info {
+            background-color: #f8f9fa;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .organizer-info .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .organizer-info .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+        }
+        .organizer-info .tagline {
+            font-size: 18px;
+            color: #555555;
+            margin-bottom: 10px;
+        }
+        .organizer-info .manager {
+            font-size: 16px;
+            color: #777777;
+            margin-bottom: 20px;
+        }
+        .organizer-info .desc {
+            font-size: 16px;
+            color: #444444;
+        }
+        .actions .btn {
+            margin-right: 10px;
+        }
+        .events .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .events .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+        .events .card-text {
+            font-size: 16px;
+            color: #555555;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="organizer-info">
+    <div class="card">
+        <div class="title">{{ organizer.name }}</div>
+        <div class="tagline">{{ organizer.tagline }}</div>
+        <div class="manager">Managed by {{ organizer.account.first_name }} {{ organizer.account.last_name }}</div>
+        <div class="desc">{{ organizer.description }}</div>
+    </div>
+</section>
+
+<section class="actions">
+    <div class="btn-group" role="group" aria-label="Organizer Actions">
+        {% for action in actions %}
+            {% include action %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="events py-4">
+    <h2 class="text-center mb-4">Our Events</h2>
+    {% include 'event/containers/event_container.html' %}
+</section>
+{% endblock %}

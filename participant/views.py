@@ -39,7 +39,7 @@ def register_participant(request):
         account_form = AccountCreationForm()
         participant_form = ParticipantCreationForm()
     
-    return render(request, "register.html", {'forms': [account_form, participant_form]})
+    return render(request, "pages/register.html", {'forms': [account_form, participant_form]})
 
 
 # view to show a participant's follow list
@@ -54,7 +54,7 @@ def follow_list(request, ctx):
         followed_organizers = Organizer.objects.filter(followlist__participant=request.user.participant)
         print(followed_organizers)
         ctx.update({'followed_organizers': followed_organizers})
-        return render(request, "follow_list.html", ctx)
+        return render(request, "pages/follow_list.html", ctx)
     else:
         return redirect("home")
     
@@ -69,4 +69,4 @@ def participations(request, ctx):
 
     ctx.update({'events': events})
 
-    return render(request, 'participations.html', ctx)
+    return render(request, 'pages/participations.html', ctx)

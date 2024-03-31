@@ -29,30 +29,30 @@ def navbar_required():
             nav_links=[]
 
             if request.user.is_authenticated:
-                nav_links=['home_navlink.html']
+                nav_links=['navbar/home_navlink.html']
             # else:
             #     nav_links=['landing_page_navlink.html']
 
             if request.user.has_perm("event.host_event"):
-                nav_links.append("host_event_navlink.html")
-                nav_links.append("my_events_navlink.html")
+                nav_links.append("navbar/host_event_navlink.html")
+                nav_links.append("navbar/my_events_navlink.html")
 
-            nav_links.append("all_events_navlink.html")
+            nav_links.append("navbar/all_events_navlink.html")
 
             if request.user.has_perm("event.participate_in_event"):
-                nav_links.append('participations_navlink.html')
+                nav_links.append('navbar/participations_navlink.html')
 
             if request.user.is_authenticated and request.user.type==Account.Types.P:
-                nav_links.append('follow_list_navlink.html')
+                nav_links.append('navbar/follow_list_navlink.html')
 
-            nav_links.append("all_organizers_navlink.html")
+            nav_links.append("navbar/all_organizers_navlink.html")
 
             if request.user.is_authenticated:
-                nav_links.append("logout_navlink.html")
+                nav_links.append("navbar/logout_navlink.html")
             else:
-                nav_links.append("login_navlink.html")
-                nav_links.append("register_as_organizer_navlink.html")
-                nav_links.append("register_as_participant_navlink.html")
+                nav_links.append("navbar/login_navlink.html")
+                nav_links.append("navbar/register_as_organizer_navlink.html")
+                nav_links.append("navbar/register_as_participant_navlink.html")
             
             # context to be sent to view, view will add in this context
             ctx={'nav_links':nav_links}

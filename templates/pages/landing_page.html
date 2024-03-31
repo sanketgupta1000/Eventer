@@ -1,0 +1,42 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+
+<section class="text-center alternate-background py-4">
+    <div class="container">
+        <h1 class="my-5">Eventer</h1>
+        <p class="lead">We provide experiences through events.</p>
+        <p>Eventer is a platform where organizers can host events, and participants can participate in the events according to their interests.</p>
+        <div class="mt-4 register-login-links">
+            <a href="{% url 'organizer:register' %}" class="btn btn-primary mr-3 mb-2 mb-md-0">Register as Organizer</a>
+            <a href="{% url 'participant:register' %}" class="btn btn-primary mr-3 mb-2 mb-md-0">Register as Participant</a>
+            <a href="{% url 'login' %}" class="btn btn-secondary mb-2 mb-md-0">Login</a>
+        </div>
+    </div>
+</aection>
+
+<section class="first-4-events py-4">
+
+    <h2 class="text-center mb-4">Browse Events</h2>
+
+    {% include 'event/containers/event_container.html' %}
+
+    <div class="text-center mt-3">
+        <a href="{% url 'event:all_events' %}" class="btn btn-primary">View More</a>
+    </div>
+
+</section>
+
+<section class="first-4-organizers py-4">
+
+    <h2 class="text-center mb-4">Browse Organizers</h2>
+
+    {% include 'organizer/containers/organizer_container.html' %}
+
+    <div class="text-center mt-3">
+        <a href="{% url 'organizer:all' %}" class="btn btn-primary">View More</a>
+    </div>
+
+</section>
+
+{% endblock %}

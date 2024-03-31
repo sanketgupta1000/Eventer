@@ -41,7 +41,7 @@ def register_organizer(request):
         account_form = AccountCreationForm()
         organizer_form = OrganizerCreationForm()
     
-    return render(request, "register.html", {'forms': [account_form, organizer_form]})
+    return render(request, "pages/register.html", {'forms': [account_form, organizer_form]})
 
 
 # view to let a participant follow an organizer
@@ -116,13 +116,13 @@ def view_organizer(request, ctx, id):
         except FollowList.DoesNotExist:
             follow_obj = None
         if follow_obj==None:
-            actions.append("follow_organizer_btn.html")
+            actions.append("organizer/actions/follow_organizer_btn.html")
         else:
-            actions.append("unfollow_organizer_btn.html")
+            actions.append("organizer/actions/unfollow_organizer_btn.html")
 
     ctx.update({'organizer': organizer, 'actions': actions, 'events': events})
 
-    return render(request, "view_organizer.html", ctx)
+    return render(request, "pages/view_organizer.html", ctx)
 
 
 # view to show my_events
@@ -139,7 +139,7 @@ def my_events(request, ctx):
 
     ctx.update({'upcoming_events': upcoming_events, 'past_events': past_events})
 
-    return render(request, 'my_events.html', ctx)
+    return render(request, 'pages/my_events.html', ctx)
 
 
 # view to show all organizers
@@ -151,4 +151,4 @@ def all_organizers(request, ctx):
 
     ctx.update({'organizers': organizers})
 
-    return render(request, 'all_organizers.html', ctx)
+    return render(request, 'pages/all_organizers.html', ctx)
